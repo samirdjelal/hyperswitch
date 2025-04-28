@@ -46,7 +46,7 @@ services:
     networks:
       - router_net
     ports:
-      - "6379:6379"
+      - "6379"
     healthcheck:
       test: ["CMD-SHELL", "redis-cli ping | grep '^PONG$'"]
       interval: 5s
@@ -71,8 +71,8 @@ services:
     networks:
       - router_net
     ports:
-      - "1025:1025"
-      - "8025:8025"
+      - "1025"
+      - "8025"
 
   ### Application services
   hyperswitch-server:
@@ -80,7 +80,7 @@ services:
     pull_policy: always
     command: /local/bin/router -f /local/config/docker_compose.toml
     ports:
-      - "8080:8080"
+      - "8080"
     networks:
       - router_net
     volumes:
@@ -183,7 +183,7 @@ services:
     image: docker.juspay.io/juspaydotin/hyperswitch-web:latest
     pull_policy: always
     ports:
-      - "9050:9050"
+      - "9050"
     networks:
       - router_net
     depends_on:
@@ -202,7 +202,7 @@ services:
     image: docker.juspay.io/juspaydotin/hyperswitch-control-center:latest
     pull_policy: always
     ports:
-      - "9000:9000"
+      - "9000"
     environment:
       - configPath=/tmp/dashboard-config.toml
     volumes:
@@ -260,7 +260,7 @@ services:
   grafana:
     image: grafana/grafana:latest
     ports:
-      - "3000:3000"
+      - "3000"
     networks:
       - router_net
     profiles:
@@ -333,7 +333,7 @@ services:
     profiles:
       - monitoring
     ports:
-      - "8001:8001"
+      - "8001"
     volumes:
       - redisinsight_store:/db
 
@@ -343,7 +343,7 @@ services:
     networks:
       - router_net
     ports:
-      - 9092:9092
+      - 9092
       - 9093
       - 9997
       - 29092
@@ -374,7 +374,7 @@ services:
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     ports:
-      - 8090:8080
+      - 8080
     networks:
       - router_net
     depends_on:
@@ -392,7 +392,7 @@ services:
       - router_net
     ports:
       - "9000"
-      - "8123:8123"
+      - "8123"
     volumes:
       - ./crates/analytics/docs/clickhouse/scripts:/docker-entrypoint-initdb.d
     environment:
@@ -415,14 +415,14 @@ services:
     profiles:
       - olap
     ports:
-      - "9200:9200"
+      - "9200"
     networks:
       - router_net
 
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:2
     ports:
-      - 5601:5601
+      - 5601
     profiles:
       - olap
     environment:
@@ -435,7 +435,7 @@ services:
     ports:
       - "8686"
       - "9598"
-      - "3103:3103"
+      - "3103"
     profiles:
       - olap
     environment:
@@ -450,8 +450,8 @@ services:
     image: docker.juspay.io/juspaydotin/hyperswitch-react-demo-app:latest
     pull_policy: always
     ports:
-      - "9060:9060"
-      - "5252:5252"
+      - "9060"
+      - "5252"
     networks:
       - router_net
     depends_on:
